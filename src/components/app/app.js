@@ -22,7 +22,7 @@ export default class App extends Component {
         { label: 'I need a break...', important: false, like: false, id: 3 }
       ],
       term: '',
-      filter: ''
+      filter: 'all'
     };
     this.deleteItem = this.deleteItem.bind(this);
     this.addItem = this.addItem.bind(this);
@@ -30,6 +30,7 @@ export default class App extends Component {
     this.onToggleLiked = this.onToggleLiked.bind(this);
     this.onUpdateSearch = this.onUpdateSearch.bind(this);
     this.filterPost = this.filterPost.bind(this);
+    this.onFilterSelect = this.onFilterSelect.bind(this);
 
     this.maxId = 4;
   }
@@ -110,6 +111,10 @@ export default class App extends Component {
     this.setState({ term });
   }
 
+  onFilterSelect(filter) {
+    this.setState({ filter });
+  }
+
   render() {
     const { data, term, filter } = this.state;
 
@@ -128,7 +133,10 @@ export default class App extends Component {
           <SearchPanel
             onUpdateSearch={this.onUpdateSearch}
           />
-          <PostStatusFilter />
+          <PostStatusFilter
+            filter={filter}
+            onFilterSelect={this.onFilterSelect}
+          />
         </div>
         <PostList
           posts={visiblePost}
